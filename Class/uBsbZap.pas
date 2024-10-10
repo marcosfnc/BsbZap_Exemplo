@@ -23,6 +23,7 @@ TMensagem = class
     FArquivotype: string;
     FExtensao: string;
     FBase64Str: string;
+    FQtdQrCode: integer;
     procedure SetNumero(const Value: string);
     procedure SetTexto(const Value: String);
     procedure SetArquivoMimetype(const Value: String);
@@ -43,6 +44,7 @@ TMensagem = class
 
     procedure SetExtensao(const Value: string);
     procedure SetBase64Str(const Value: string);
+    procedure SetQtdQrCode(const Value: integer);
 
   public
     property Numero: String read FNumero write SetNumero;
@@ -58,6 +60,7 @@ TMensagem = class
     property Arquivotype: string read FArquivotype write SetArquivotype;
     property Extensao: string read FExtensao write SetExtensao;
     property Base64Str: string read FBase64Str write SetBase64Str;
+    property QtdQrCode: integer read FQtdQrCode write SetQtdQrCode;
 
     function NumeroEhValido(const Numero: string): Boolean;
     function ObterQrCode(ID, Token, Numero : String): Boolean;
@@ -374,6 +377,7 @@ begin
       ResponseJSON := TJSONObject.ParseJSONValue(ResponseStr) as TJSONObject;
       Base64QRCode := ResponseJSON.GetValue<string>('base64');
       pairingCode  := ResponseJSON.GetValue<string>('pairingCode');
+      QtdQrCode    := ResponseJSON.GetValue<integer>('count');
       Result := True;
     except
       on E: Exception do
@@ -446,6 +450,11 @@ end;
 procedure TMensagem.SetpairingCode(const Value: string);
 begin
   FpairingCode := Value;
+end;
+
+procedure TMensagem.SetQtdQrCode(const Value: integer);
+begin
+  FQtdQrCode := Value;
 end;
 
 procedure TMensagem.SetTexto(const Value: String);

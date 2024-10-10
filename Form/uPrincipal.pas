@@ -46,7 +46,7 @@ type
     procedure ButAnexarClick(Sender: TObject);
     procedure TimerQrCodeTimer(Sender: TObject);
   private
-    { Private declarations }
+    QtdInicialQrCode: Integer;
   public
     { Public declarations }
   end;
@@ -255,7 +255,25 @@ begin
         end;
 
         if Status <> 'Erro' then
+        begin
+          if BsbZap.ObterQrCode(Trim(edtID.Text), Trim(edtSenha.Text),'') then
+          begin
+            if BsbZap.QtdQrCode = 30 then
+            begin
+              ImgQrCode.Picture := nil;
+              ShowMessage('Tempo esgotado!');
+              exit;
+            end
+            else
+              BsbZap.LoadBase64ToImage(BsbZap.Base64QRCode,ImgQrCode);
+          end
+          else
+          begin
+            ShowMessage('Não foi possivel conectar na instância!');
+          end;
+
           TimerQrCode.Enabled := True;
+        end;
 
       finally
         FreeAndNil(BsbZap);

@@ -40,7 +40,7 @@ TMensagem = class
     function FileToBase64(const FileName: string): string;
     function CleanInvalidBase64Chars(const Base64Str: string): string;
     function TrocaCaracterEspecial(aTexto: string; aCaracteresExtras: array of string): string;
-
+    function GetMimeType(const FileName: string): string;
 
     procedure SetExtensao(const Value: string);
     procedure SetBase64Str(const Value: string);
@@ -89,6 +89,9 @@ const
 
 
 implementation
+
+uses
+  System.Generics.Collections;
 
 { TMensagem }
 
@@ -161,7 +164,7 @@ begin
     JSONToSend.AddPair('number', '55' + Numero);
 
     JSONToSend.AddPair('mediatype', Arquivotype);
-    JSONToSend.AddPair('mimetype', Arquivotype + '/' + Extensao);
+    JSONToSend.AddPair('mimetype', GetMimeType(Anexo));
     JSONToSend.AddPair('caption', 'Teste caption');  // pode passar um titulo para o nexo
     JSONToSend.AddPair('media', Base64Str);
     JSONToSend.AddPair('fileName', ArquivoNome + '.' + Extensao);
@@ -303,6 +306,47 @@ begin
   finally
     InputStream.Free;
   end;
+end;
+
+function TMensagem.GetMimeType(const FileName: string): string;
+var
+  MimeTypes: TDictionary<string, string>;
+  Ext: string;
+begin
+  MimeTypes := TDictionary<string, string>.Create;
+
+  try
+    MimeTypes.Add('.html', 'text/html');
+    MimeTypes.Add('.htm', 'text/html');
+    MimeTypes.Add('.txt', 'text/plain');
+    MimeTypes.Add('.jpg', 'image/jpeg');
+    MimeTypes.Add('.jpeg', 'image/jpeg');
+    MimeTypes.Add('.png', 'image/png');
+    MimeTypes.Add('.gif', 'image/gif');
+    MimeTypes.Add('.pdf', 'application/pdf');
+    MimeTypes.Add('.zip', 'application/zip');
+    MimeTypes.Add('.rar', 'application/x-rar-compressed');
+    MimeTypes.Add('.doc', 'application/msword');
+    MimeTypes.Add('.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    MimeTypes.Add('.xls', 'application/vnd.ms-excel');
+    MimeTypes.Add('.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    MimeTypes.Add('.ppt', 'application/vnd.ms-powerpoint');
+    MimeTypes.Add('.pptx', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+    MimeTypes.Add('.mp3', 'audio/mpeg');
+    MimeTypes.Add('.ogg', 'audio/mpeg');
+    MimeTypes.Add('.mp4', 'video/mp4');
+    MimeTypes.Add('.avi', 'video/x-msvideo');
+    MimeTypes.Add('.mov', 'video/quicktime');
+    MimeTypes.Add('.json', 'application/json');
+
+    if MimeTypes.TryGetValue(Ext, Result) then
+      Exit
+    else
+      Result := 'application/octet-stream';
+  finally
+    FreeAndNil(MimeTypes);
+  end;
+
 end;
 
 procedure TMensagem.LoadBase64ToImage(const Base64: string; Image: TImage);

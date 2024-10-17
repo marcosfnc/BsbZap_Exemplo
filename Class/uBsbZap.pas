@@ -311,7 +311,7 @@ end;
 function TMensagem.GetMimeType(const FileName: string): string;
 var
   MimeTypes: TDictionary<string, string>;
-  Ext: string;
+  Ext, Extension: string;
 begin
   MimeTypes := TDictionary<string, string>.Create;
 
@@ -339,6 +339,12 @@ begin
     MimeTypes.Add('.mov', 'video/quicktime');
     MimeTypes.Add('.json', 'application/json');
 
+    Extension := ExtractFileExt(FileName).ToLower;
+
+    Ext := LowerCase(Extension);
+    if not Ext.StartsWith('.') then
+      Ext := '.' + Ext;
+
     if MimeTypes.TryGetValue(Ext, Result) then
       Exit
     else
@@ -346,7 +352,6 @@ begin
   finally
     FreeAndNil(MimeTypes);
   end;
-
 end;
 
 procedure TMensagem.LoadBase64ToImage(const Base64: string; Image: TImage);
@@ -414,8 +419,7 @@ begin
       if Numero <> '' then
         params.Add('?number' + '55' + Numero);
 
-      Parametros := StringReplace(params.Text, #13#10, '', [rfReplaceAll]);
-
+      Parametros  := StringReplace(params.Text, #13#10, '', [rfReplaceAll]);
       ResponseStr := HTTP.Get(Urlv2 + '/instance/connect/' + Parametros);
 
       ResponseJSON := TJSONObject.ParseJSONValue(ResponseStr) as TJSONObject;
@@ -433,7 +437,6 @@ begin
     FreeAndNil(SSL);
     FreeAndNil(params);
   end;
-
 end;
 
 procedure TMensagem.SetArquivoBase64(const Value: string);

@@ -73,7 +73,7 @@ TMensagem = class
 end;
 
 const
-  URLv2                 = 'https://apibsbzap.bsbsoftware.com.br';
+  URLv2                 = 'https://apizap.bsbzap.com';
 
   ENDPOINT_MENSSAGEM    = '/message/sendText';
   ENDPOINT_ANEXO        = '/message/sendMedia';

@@ -27,7 +27,7 @@ object Form1: TForm1
       Left = 9
       Top = 9
       Width = 897
-      Height = 76
+      Height = 64
       Caption = 'Inst'#226'ncia'
       TabOrder = 0
       object Label1: TLabel
@@ -80,8 +80,8 @@ object Form1: TForm1
     ExplicitTop = 102
     ExplicitWidth = 918
     object GbFoto: TGroupBox
-      Left = 632
-      Top = 10
+      Left = 616
+      Top = 0
       Width = 274
       Height = 297
       Caption = 'Foto'
@@ -142,7 +142,7 @@ object Form1: TForm1
     end
     object GbDadosEnvio: TGroupBox
       Left = 9
-      Top = 10
+      Top = 0
       Width = 592
       Height = 495
       Caption = 'Dados Envio Mensagem'
@@ -520,17 +520,41 @@ object Form1: TForm1
         OnClick = ButEnviarClick
       end
     end
+    object GroupBox1: TGroupBox
+      Left = 616
+      Top = 312
+      Width = 274
+      Height = 185
+      Caption = 'Teste para Sistemas '
+      TabOrder = 2
+      object BitBtn1: TBitBtn
+        Left = 24
+        Top = 32
+        Width = 225
+        Height = 25
+        Caption = 'Envio Instancia Propria'
+        TabOrder = 0
+      end
+      object BitBtn2: TBitBtn
+        Left = 24
+        Top = 70
+        Width = 225
+        Height = 25
+        Caption = 'Envio Instancia Compartilhada'
+        TabOrder = 1
+      end
+    end
   end
   object TimerQrCode: TTimer
     Enabled = False
-    Interval = 6000
+    Interval = 30000
     OnTimer = TimerQrCodeTimer
-    Left = 830
-    Top = 420
+    Left = 758
+    Top = 244
   end
   object ODAnexos: TOpenDialog
     Title = 'Selecione o anexo'
-    Left = 831
-    Top = 497
+    Left = 495
+    Top = 329
   end
 end

@@ -39,6 +39,9 @@ type
     Label8: TLabel;
     TimerQrCode: TTimer;
     ODAnexos: TOpenDialog;
+    GroupBox1: TGroupBox;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
     procedure Button2Click(Sender: TObject);
     procedure ChkContatoClick(Sender: TObject);
     procedure ButEnviarClick(Sender: TObject);

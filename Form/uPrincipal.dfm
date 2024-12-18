@@ -4,8 +4,8 @@ object Form1: TForm1
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Bsb Zap Versao V10.24.013.v2'
-  ClientHeight = 616
-  ClientWidth = 922
+  ClientHeight = 606
+  ClientWidth = 1129
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object Form1: TForm1
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 922
+    Width = 1129
     Height = 97
     Align = alTop
     BevelOuter = bvNone
@@ -71,8 +71,8 @@ object Form1: TForm1
   end
   object PnlEnvios: TPanel
     Left = 0
-    Top = 103
-    Width = 922
+    Top = 93
+    Width = 1129
     Height = 513
     Align = alBottom
     BevelOuter = bvNone
@@ -80,15 +80,15 @@ object Form1: TForm1
     ExplicitTop = 102
     ExplicitWidth = 918
     object GbFoto: TGroupBox
-      Left = 616
+      Left = 487
       Top = 0
-      Width = 274
+      Width = 258
       Height = 297
       Caption = 'Foto'
       Enabled = False
       TabOrder = 0
       object ImgQrCode: TImage
-        Left = 20
+        Left = 10
         Top = 84
         Width = 242
         Height = 167
@@ -96,7 +96,7 @@ object Form1: TForm1
         Proportional = True
       end
       object Label8: TLabel
-        Left = 16
+        Left = 6
         Top = 14
         Width = 102
         Height = 14
@@ -109,7 +109,7 @@ object Form1: TForm1
         ParentFont = False
       end
       object BtnCarregaFoto: TButton
-        Left = 74
+        Left = 64
         Top = 260
         Width = 135
         Height = 25
@@ -119,7 +119,7 @@ object Form1: TForm1
         OnClick = BtnCarregaFotoClick
       end
       object EdtNumeroFoto: TEdit
-        Left = 16
+        Left = 6
         Top = 34
         Width = 225
         Height = 39
@@ -143,7 +143,7 @@ object Form1: TForm1
     object GbDadosEnvio: TGroupBox
       Left = 9
       Top = 0
-      Width = 592
+      Width = 472
       Height = 495
       Caption = 'Dados Envio Mensagem'
       Enabled = False
@@ -191,7 +191,7 @@ object Form1: TForm1
         Layout = tlCenter
       end
       object ButAnexar: TSpeedButton
-        Left = 463
+        Left = 343
         Top = 262
         Width = 110
         Height = 35
@@ -306,7 +306,7 @@ object Form1: TForm1
       object MemoMensagem: TMemo
         Left = 16
         Top = 107
-        Width = 511
+        Width = 449
         Height = 112
         Align = alCustom
         Color = clWhite
@@ -318,6 +318,7 @@ object Form1: TForm1
         Font.Style = []
         ParentCtl3D = False
         ParentFont = False
+        ScrollBars = ssVertical
         TabOrder = 0
       end
       object EdtPara: TEdit
@@ -341,7 +342,7 @@ object Form1: TForm1
       object ListBoxAnexos: TListBox
         Left = 16
         Top = 245
-        Width = 441
+        Width = 321
         Height = 76
         Align = alCustom
         Color = clBtnFace
@@ -521,9 +522,9 @@ object Form1: TForm1
       end
     end
     object GroupBox1: TGroupBox
-      Left = 616
-      Top = 312
-      Width = 274
+      Left = 487
+      Top = 303
+      Width = 258
       Height = 185
       Caption = 'Teste para Sistemas '
       TabOrder = 2
@@ -544,6 +545,42 @@ object Form1: TForm1
         TabOrder = 1
       end
     end
+    object GbGrupos: TGroupBox
+      Left = 751
+      Top = 0
+      Width = 364
+      Height = 489
+      Caption = 'Grupos'
+      Enabled = False
+      TabOrder = 3
+      object BitBtn3: TBitBtn
+        Left = 16
+        Top = 34
+        Width = 225
+        Height = 25
+        Caption = 'Listar Grupos'
+        TabOrder = 0
+        OnClick = BitBtn3Click
+      end
+      object MmGrupos: TMemo
+        Left = 3
+        Top = 65
+        Width = 358
+        Height = 408
+        Align = alCustom
+        Color = clWhite
+        Ctl3D = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentCtl3D = False
+        ParentFont = False
+        ScrollBars = ssVertical
+        TabOrder = 1
+      end
+    end
   end
   object TimerQrCode: TTimer
     Enabled = False
@@ -555,6 +592,6 @@ object Form1: TForm1
   object ODAnexos: TOpenDialog
     Title = 'Selecione o anexo'
     Left = 495
-    Top = 329
+    Top = 425
   end
 end

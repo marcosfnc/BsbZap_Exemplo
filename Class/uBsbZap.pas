@@ -68,6 +68,7 @@ TMensagem = class
     function EnviarMensagem(Numero, Mensagem, ID, Token: string): Integer;
     function EnviarArquivo(Numero, Anexo, ID, Token: string): Integer;
     function EnviarContato(Numero, NomeCont, NumeroContat, ID, Token: string): Integer;
+    function ListarGrupos(ID, Token: string): string;
 
     procedure LoadBase64ToImage(const Base64: string; Image: TImage);
 end;
@@ -351,6 +352,64 @@ begin
       Result := 'application/octet-stream';
   finally
     FreeAndNil(MimeTypes);
+  end;
+end;
+
+function TMensagem.ListarGrupos(ID, Token: string): string;
+var
+  HTTP: TIdHTTP;
+  SSL: TIdSSLIOHandlerSocketOpenSSL;
+  ResponseStr: string;
+  JSONArray: TJSONArray;
+  I: Integer;
+  JSONGroup: TJSONObject;
+  Grupos: TStringList;
+  Value : TJSONValue;
+begin
+  result := '';
+  HTTP := TIdHTTP.Create(nil);
+  SSL := TIdSSLIOHandlerSocketOpenSSL.Create(nil);
+  Grupos := TStringList.Create;
+
+  try
+    SSL.SSLOptions.SSLVersions := [sslvTLSv1, sslvTLSv1_1, sslvTLSv1_2];
+    HTTP.IOHandler := SSL;
+    HTTP.Request.CustomHeaders.AddValue('apikey', Token);
+
+    ResponseStr := HTTP.Get(Urlv2 + '/group/fetchAllGroups/' + ID + '?getParticipants=false');
+    JSONArray := TJSONObject.ParseJSONValue(ResponseStr) as TJSONArray;
+
+    for I := 0 to JSONArray.Count - 1 do
+    begin
+      JSONGroup := JSONArray.Items[I] as TJSONObject;
+
+      if JSONGroup.TryGetValue('id', Value) then
+        Grupos.Add('id: ' + Value.Value);
+
+      if JSONGroup.TryGetValue('subject', Value) then
+        Grupos.Add('subject: ' + Value.Value);
+
+      if JSONGroup.TryGetValue('subjectOwner', Value) then
+        Grupos.Add('subjectOwner: ' + Value.Value);
+
+      if JSONGroup.TryGetValue('owner', Value) then
+        Grupos.Add('owner: ' + Value.Value);
+
+      if JSONGroup.TryGetValue('desc', Value) then
+        Grupos.Add('desc: ' + Value.Value);
+
+      if JSONGroup.TryGetValue('descId', Value) then
+        Grupos.Add('descId: ' + Value.Value);
+
+      Grupos.Add('----------------------------------------');
+    end;
+
+    Result := Grupos.Text;
+
+  finally
+    FreeAndNil(HTTP);
+    FreeAndNil(SSL);
+    FreeAndNil(Grupos);
   end;
 end;
 

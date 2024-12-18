@@ -42,12 +42,16 @@ type
     GroupBox1: TGroupBox;
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
+    GbGrupos: TGroupBox;
+    BitBtn3: TBitBtn;
+    MmGrupos: TMemo;
     procedure Button2Click(Sender: TObject);
     procedure ChkContatoClick(Sender: TObject);
     procedure ButEnviarClick(Sender: TObject);
     procedure BtnCarregaFotoClick(Sender: TObject);
     procedure ButAnexarClick(Sender: TObject);
     procedure TimerQrCodeTimer(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
   private
     QtdInicialQrCode: Integer;
   public
@@ -62,6 +66,18 @@ implementation
 {$R *.dfm}
 
 uses uBsbZap;
+
+procedure TForm1.BitBtn3Click(Sender: TObject);
+var
+  BsbZap: TMensagem;
+begin
+  BsbZap := TMensagem.Create;
+  try
+    MmGrupos.Lines.Add(BsbZap.ListarGrupos(edtID.Text, edtSenha.Text));
+  finally
+    FreeAndNil(BsbZap);
+  end;
+end;
 
 procedure TForm1.BtnCarregaFotoClick(Sender: TObject);
 var
@@ -205,6 +221,7 @@ begin
           GbFoto.Enabled       := true;
           GbDadosEnvio.Enabled := true;
           GbInstancia.Enabled  := False;
+          GbGrupos.Enabled     := True;
           ShowMessage('Instância conectada com sucesso!');
         end;
       else

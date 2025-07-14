@@ -22,7 +22,7 @@ object Form1: TForm1
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 918
+    ExplicitWidth = 1125
     object GbInstancia: TGroupBox
       Left = 9
       Top = 9
@@ -77,8 +77,8 @@ object Form1: TForm1
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 102
-    ExplicitWidth = 918
+    ExplicitTop = 92
+    ExplicitWidth = 1125
     object GbFoto: TGroupBox
       Left = 487
       Top = 0

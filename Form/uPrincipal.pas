@@ -141,17 +141,21 @@ begin
   BsbZap := TMensagem.Create;
 
   try
-    if not BsbZap.NumeroEhValido(Trim(EdtPara.Text)) then
-    begin
-      MessageDlg('Número inválido.', mtWarning, [mbOK], 0);
-      EdtPara.SetFocus;
-      Abort;
-    end;
-
     ID       := trim(edtID.Text);
     Token    := trim(edtSenha.Text);
     Mensagem := Trim(MemoMensagem.Text);
     numero   := Trim(EdtPara.Text);
+
+
+    if not numero.Contains('@') then
+    begin
+      if not BsbZap.NumeroEhValido(numero) then
+      begin
+        MessageDlg('Número inválido.', mtWarning, [mbOK], 0);
+        EdtPara.SetFocus;
+        Abort;
+      end;
+    end;
 
     if Mensagem <> '' then
     begin

@@ -166,7 +166,7 @@ begin
 
     JSONToSend.AddPair('mediatype', Arquivotype);
     JSONToSend.AddPair('mimetype', GetMimeType(Anexo));
-    JSONToSend.AddPair('caption', 'Teste caption');  // pode passar um titulo para o nexo
+    JSONToSend.AddPair('caption', 'Boleto');  // pode passar um titulo para o nexo
     JSONToSend.AddPair('media', Base64Str);
     JSONToSend.AddPair('fileName', ArquivoNome + '.' + Extensao);
     JSONToSend.AddPair('delay', TJSONNumber.Create(100));
@@ -261,7 +261,10 @@ begin
   HTTP.Request.CustomHeaders.AddValue('apikey', Token);
 
   try
-    JSONToSend.AddPair('number', '55' + Numero);
+    if Numero.Contains('@') then
+      JSONToSend.AddPair('number', Numero)
+    else
+      JSONToSend.AddPair('number', '55' + Numero);
 
     JSONToSend.AddPair('text', Mensagem);
     JSONToSend.AddPair('delay', TJSONNumber.Create(100));
@@ -385,22 +388,16 @@ begin
 
       if JSONGroup.TryGetValue('id', Value) then
         Grupos.Add('id: ' + Value.Value);
-
       if JSONGroup.TryGetValue('subject', Value) then
         Grupos.Add('subject: ' + Value.Value);
-
       if JSONGroup.TryGetValue('subjectOwner', Value) then
         Grupos.Add('subjectOwner: ' + Value.Value);
-
       if JSONGroup.TryGetValue('owner', Value) then
         Grupos.Add('owner: ' + Value.Value);
-
       if JSONGroup.TryGetValue('desc', Value) then
         Grupos.Add('desc: ' + Value.Value);
-
       if JSONGroup.TryGetValue('descId', Value) then
         Grupos.Add('descId: ' + Value.Value);
-
       Grupos.Add('----------------------------------------');
     end;
 
